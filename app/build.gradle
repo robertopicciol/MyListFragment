@@ -1,0 +1,83 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: "kotlin-android-extensions"
+android {
+    signingConfigs {
+        config {
+            keyAlias 'RobyAndroidKey'
+            keyPassword 'susy.0903'
+            storeFile file('D:/DEVELOPMENT/IDEAPROJECTS/KEY_STORE_FOR_APP/android_keystore_roby.jks')
+            storePassword 'susy.0903'
+        }
+    }
+    compileSdkVersion 27
+    buildToolsVersion "27.0.2"
+    defaultConfig {
+        applicationId "com.roberto.androidex.mylistfragment"
+        minSdkVersion 22
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        debug {
+            applicationIdSuffix ".debug"
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            //signingConfig signingConfigs.config
+        }
+    }
+    productFlavors {
+        full {
+            applicationIdSuffix ".full"
+            versionNameSuffix "-full"
+        }
+        demo {
+            applicationIdSuffix ".demo"
+            versionNameSuffix "-demo"
+        }
+    }
+    sourceSets {
+        main.java.srcDirs += 'src/main/java'
+        main.java.srcDirs += 'src/main/kotlin'
+        main.java.srcDirs += 'src/demo/java'
+        main.java.srcDirs += 'src/demo/kotlin'
+        main.java.srcDirs += 'src/full/java'
+        main.java.srcDirs += 'src/full/kotlin'
+
+        main.res.srcDirs += 'src/main/res/layouts/activities'
+        main.res.srcDirs += 'src/main/res/layouts/fragments'
+        main.res.srcDirs += 'src/main/res/layouts'
+        main.res.srcDirs += 'src/main/res'
+
+        demo.res.srcDirs += 'src/demo/res/layouts/activities'
+        demo.res.srcDirs += 'src/demo/res/layouts/fragments'
+        demo.res.srcDirs += 'src/demo/res/layouts'
+        demo.res.srcDirs += 'src/demo/res'
+
+        full.res.srcDirs += 'src/full/res/layouts/activities'
+        full.res.srcDirs += 'src/full/res/layouts/fragments'
+        full.res.srcDirs += 'src/full/res/layouts'
+        full.res.srcDirs += 'src/full/res'
+
+        test.java.srcDirs += 'src/test/kotlin'
+        androidTest.java.srcDirs += 'src/androidTest/kotlin'
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support:appcompat-v7:27.0.2'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    testCompile 'junit:junit:4.12'
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+}
+repositories {
+    mavenCentral()
+}
